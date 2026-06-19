@@ -1,0 +1,53 @@
+&CONTROL
+calculation = 'relax' ,
+restart_mode = 'restart' ,
+outdir = './Ag_mp-124_111_hollow_1' ,
+pseudo_dir = '/home/ecastro/trabajo_final/pseudos/' ,
+prefix = 'Ag_mp-124_111_hollow_1' ,
+max_seconds = 3550 ,
+nstep = 500 ,
+tstress = .true. ,
+tprnfor = .true. ,
+ /
+&SYSTEM
+ibrav = 0,
+nat = 7,
+ntyp = 2,
+ecutwfc = 55 ,
+ecutrho = 500 ,
+occupations = 'smearing'
+degauss = 0.03,
+smearing = 'methfessel-paxton'
+vdw_corr = 'DFT-D3' ,
+dftd3_threebody = .false. ,
+nosym = .true.,
+/
+&ELECTRONS
+conv_thr = 1.0d-6 ,
+mixing_beta = 0.3 ,
+diagonalization = 'david' ,
+electron_maxstep = 200
+ /
+&IONS
+ion_dynamics = 'bfgs' 
+ /
+CELL_PARAMETERS angstrom
+2.8994475991134268 0.0 0.12678399133526227
+1.4469518611254386 2.512593618472801 0.12678399133526225
+0.0 0.0 31.917695185514646
+
+ATOMIC_SPECIES
+Li  6.9410  Li.pbe-s-rrkjus_psl.1.0.0.UPF
+Ag  107.8682  Ag.pbe-n-rrkjus_psl.1.0.0.UPF
+
+ATOMIC_POSITIONS (Angstrom)
+Ag            1.9495966967        0.5683247470       10.1267839913
+Ag            1.8442630363        2.1835635018       12.5356798267
+Ag            3.1914251139        1.2862086380       14.9445756621
+Ag            1.6391395924        0.3888537743       17.2266875061
+Ag            1.5352132586        2.0049095760       19.6033058512
+Ag            2.8809078393        1.1067053890       22.0458919710
+Li 1.3447654606962294 0.21868265366371586 24.045891971000003
+
+K_POINTS automatic
+8 8 1   0 0 0
