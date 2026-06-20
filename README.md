@@ -1,10 +1,10 @@
-# Li_ads_ML
+# Li_Adsorption_ML
 
 An automated workflow to generate a database of adsorption energies and a Graph Neural Network (GNN) model to predict them are presented. PyMatGen tools are used to generate surfaces from Materials Project’s crystalline structures and to identify adsorption sites on them. The GNN model, based on Xie and Grossman's CGCNN model (2018), is implemented in PyTorch and designed to run on GPUs.
 
 ![logo_python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![logo_pandas](https://img.shields.io/badge/Pandas-2.2.2-red.svg)
-![logo numpy]()https://img.shields.io/badge/Numpy-2.2.6-red.svg)
+![logo numpy](https://img.shields.io/badge/Numpy-2.2.6-red.svg)
 ![logo matplñotlib](https://img.shields.io/badge/Matplotlib-30.10.3-red.svg)
 ![logo scipy](https://img.shields.io/badge/SciPy-1.14.1-red.svg)
 ![logo joblib](https://img.shields.io/badge/Joblib-1.4.2-red.svg)
