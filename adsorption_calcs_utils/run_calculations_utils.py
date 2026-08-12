@@ -43,7 +43,7 @@ def select_material(materials, n):
     print(f"Chosen material:\n{material}, {material_id}")
     return material, material_id, e_hull, nsites
 
-def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,0), (1,1,1)], path="./slabs", min_slab=10.0, min_vac=20.0, center_slab=True, verbose=True, if_exists_do="nothing"):
+def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,0), (1,1,1)], path="./slabs", cif_path="./cif/", min_slab=10.0, min_vac=20.0, center_slab=True, verbose=True, if_exists_do="nothing"):
     """
     Generate and returns pymatgen.core.surface.Slab objects from given material, Miller indices and slab and vacuum size parameters. Each Slab object is created from a cif file provided by Materials Project (MP).
 
@@ -63,6 +63,8 @@ def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,
             List of Miller indices. Each indice is given as a list or tuple of int, as [1,0,0] or [1,1,1].
         path: str, default="./slabs"
             Path of the folder where the .joblib objects with the slabs will be saved.
+        cif_path: str, default="./cif/"
+            Path of folder with the cif files.
         min_slab: float, default=10.0
             Minimun size of the slab in Angstrom
         min_vac: float, default=20.0
@@ -85,7 +87,7 @@ def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,
     print(material)
 
     # Get structure from cif file and save it in a pymatgen.core.structure.Structure object
-    struct = get_structure_from_cif(material_id)
+    struct = get_structure_from_cif(material_id, path=os.path.normpath(cif_path))
 
     # Create slab objects for each Miller index, and save it in an pymatgen.core.surface.Slab object
     for idx in miller:
