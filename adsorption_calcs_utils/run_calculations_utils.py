@@ -40,7 +40,7 @@ def select_material(materials, n):
     material_id = materials[n][1]
     e_hull = materials[n][2]
     nsites = materials[n][3]
-    print(f"Material Elegido:\n{material}, {material_id}")
+    print(f"Chosen material:\n{material}, {material_id}")
     return material, material_id, e_hull, nsites
 
 def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,0), (1,1,1)], path="./slabs", min_slab=10.0, min_vac=20.0, center_slab=True, verbose=True, if_exists_do="nothing"):
