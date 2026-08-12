@@ -195,7 +195,7 @@ def get_structure_from_cif(cif_id, path="./cif/", primitive=True):
             The parsed crystal structure from the CIF file.
     """    
     # Construct the full path to the CIF file using the material ID
-    cif_file = path + f"{cif_id}.cif"
+    cif_file = path + f"/{cif_id}.cif"
     
     # Parse the CIF file to extract the crystal structure
     parser = CifParser(cif_file)
