@@ -204,7 +204,7 @@ def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=
 
         # Verify if the file for this surface is already created in calculations history database
         if _verify_calculation_history(material, material_id, int(index_str), csv_path=csv_path) and not replace_in:
-            print("\tThe .in file was already created for this surface. See historial_de_calculos.csv.")
+            print("\tThe .in file was already created for this surface. See the calculations record csv.")
             continue
 
         # Load the surface given by material, material_id and idx and create a copy with required number of layers and vacuum size
