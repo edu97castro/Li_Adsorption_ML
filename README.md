@@ -10,11 +10,17 @@
 ![logo pymatgen](https://img.shields.io/badge/PyMatGen-orange.svg)
 ![logo licencia MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
-An automated workflow to generate a database of adsorption energies and a Graph Neural Network (GNN) model to predict them are presented. PyMatGen tools are used to generate surfaces from Materials Project’s crystalline structures and to identify adsorption sites on them. The GNN model, based on Xie and Grossman's CGCNN model (2018), is implemented in PyTorch and designed to run on GPUs.
+An automated workflow to generate a database of adsorption energies and a Graph Neural Network (GNN) model to predict them are presented. PyMatGen tools are used to generate surfaces from Materials Project’s crystalline structures and to identify adsorption sites on them. The GNN model, based on Xie and Grossman's CGCNN model (2018)$^1$, is implemented in PyTorch and designed to run on GPUs.
 
-This project aims to help to identify materials suitable for use as anode current collectors in Anode-Free Lithium Batteries (AFLB). Pande and Viswanathan showed that the adsorption energy of Lithium (Li) on a metallic crystal's surface can be used as a descriptor of the material's performance as a current collector.[^1]
+This project aims to help to identify materials suitable for use as anode current collectors in Anode-Free Lithium Batteries (AFLB). Pande and Viswanathan showed that the adsorption energy of Lithium (Li) on a metallic crystal's surface can be used as a descriptor of the material's performance as a current collector $^2$.
 
 Using the automatic workflow and the trained model, a database of 1507 adsorption energies was created. The considered substrates are made of pure transition metals, Li, Mg, Ca, B, Al, Ga, Si, Sn, Ge and Pb, as well as their alloys with Li.
+
+$^1$ T. Xie y J. C. Grossman. **“Crystal Graph Convolutional Neural Networks for
+Accurate and Interpretable Prediction of Material Properties”**. En: Physical
+Review Letters 120 (2018). doi: 10.1103/PhysRevLett.120.145301.
+
+$^2$ V. Pande, V. Viswanathan. **“Computational Screening of Current Collectors for Enabling Anode-Free Lithium Metal Batteries”**. In: ACS Energy Letters 4.1 (2019), pp. 2952-2959. doi: 10.1021/acsenergylett.9b02306.
 
 ## Content overview
 
@@ -44,6 +50,3 @@ The `ads_energies_calculations` directory contains the complete workflow for com
 - Creating the `.in` files for Quantum ESPRESSO (QE) to relax the surfaces and compute the adsorption energies
 - Identifying the adsorption sites on surfaces
 - Extracting the results from the QE's `.out` files.
-
-[^1] V. Pande, V. Viswanathan. **“Computational Screening of Current Collectors for Enabling Anode-Free Lithium Metal Batteries”**. In: ACS Energy Letters 4.1 (2019), pp. 2952-2959. doi: 10.1021/acsenergylett.9b02306.
-
