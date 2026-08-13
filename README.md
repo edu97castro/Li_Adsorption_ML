@@ -18,7 +18,7 @@ Using the automatic workflow and the trained model, a database of 1507 adsorptio
 
 ## Content overview
 
-The notebook `run_adsorption_calc.ipynb` shows all the process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions.
+The notebook `run_adsorption_calc.ipynb` shows all the process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions and is mainly based on [PyMatGen  Library](https://pymatgen.org/).
 
 The `samples` directory contains some examples to try the notebook's workflow. Its content includes:
 - The `cif` directory with the `CIF` files of MP's crystals.
