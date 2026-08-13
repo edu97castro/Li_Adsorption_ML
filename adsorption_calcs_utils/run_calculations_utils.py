@@ -234,7 +234,7 @@ def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=
         dump(modified_surface, surface_file_path)
         is_surface_stteped = _verify_surface_quality(surface_file_path, csv_path=csv_path)
 
-        # Guardo información en df_history
+        # Saves calcultation data in the calculations record CSV file
         _save_calc_in_calculation_history(material, material_id, ehull, int(index_str), modified_surface, is_surface_stteped, csv_path=csv_path)
 
 def ads_in_files_creation(material, material_id, folder_path, miller=['100', '110', '111'], csv_path='./historial_de_calculos.csv', tolerance=0.85):
