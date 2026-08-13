@@ -104,7 +104,7 @@ def create_slabs_per_miller_index(material, material_id, miller=[(1,0,0),  (1,1,
             else:
                 print("\n")
         else:
-            print("The slab already exists", end="\t")
+            print("The slab already exists.", end="\t")
             surface = load(file_path)
             if verbose == True:
                 print(f"Number of atoms: {len(surface)},\tNumber of layers: {count_layers_local(surface)}")
