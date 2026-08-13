@@ -319,7 +319,7 @@ def complete_history_with_ads_calcs(folder_path, material, material_id, csv_path
         csv_path : str, default='./historial_de_calculos.csv'
             Path of the CSV file containing the calculations history database.
     """
-    df_history = pd.read_csv('./historial_de_calculos.csv', low_memory=False)
+    df_history = pd.read_csv(csv_path, low_memory=False)
     miller = ["100", "110", "111"]
     path = f'{folder_path}/{material}_{material_id}'
 
