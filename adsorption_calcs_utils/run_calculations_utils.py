@@ -443,7 +443,7 @@ def adsorption_energies_count(energies_csv='./base_energias.csv', elements=None)
 
     total_cases = result['bridge'].sum() + result['hollow'].sum() + result['ontop'].sum()
     print(f"\n\nTotal cases calculated (surface+adsorption site): {total_cases}")
-    print(f"Number of chemical elements combinations tried: {len(result)}")
+    print(f"Number of chemical systems tried: {len(result)}")
 
 def consult_history_db(material, material_id=None, idx=None, history_csv='./historial_de_calculos.csv'):
     """
