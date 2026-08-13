@@ -236,7 +236,7 @@ def _verify_calculation_result(file_path):
 
     return calc_result
 
-def _create_all_adsorption_files(path, material, material_id, idx):
+def _create_all_adsorption_files(path, material, material_id, idx, csv_file='potenciales.csv'):
     """
     Creates a .in files for surface+Li for each adsorption site for a given surface (determined by material, material_id, idx). Returns a dictionary with the asorption sites´s coords.
 
@@ -250,6 +250,8 @@ def _create_all_adsorption_files(path, material, material_id, idx):
             Material´s ID in MP.
         idx : str
             Miller index in string format. For example, '100', '110', ...
+        csv_file : str, default='potenciales.csv'
+            Path of CSV file with pseudopotentials data.
 
     Output:
     -----------
@@ -263,7 +265,7 @@ def _create_all_adsorption_files(path, material, material_id, idx):
     # Load slab pymatgen object
     surface = load(f'{path}/surface_{material}_{material_id}_{idx}.joblib')
     # Create adsorption .in files
-    as_dict = ads_in(surface, file_out, file_in)
+    as_dict = ads_in(surface, file_out, file_in, csv_file=csv_file)
     return as_dict
 
 def _count_adsorption_sites(idx, path):

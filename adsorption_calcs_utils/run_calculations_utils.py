@@ -246,7 +246,8 @@ slabs_path = "./slabs", model_path='./model.in', csv_file='potenciales.csv'):
         # Saves calcultation data in the calculations record CSV file
         _save_calc_in_calculation_history(material, material_id, ehull, int(index_str), modified_surface, is_surface_stteped, csv_path=csv_path)
 
-def ads_in_files_creation(material, material_id, folder_path, miller=['100', '110', '111'], csv_path='./historial_de_calculos.csv', tolerance=0.85):
+def ads_in_files_creation(material, material_id, folder_path, miller=['100', '110', '111'], csv_path='./historial_de_calculos.csv',
+                          tolerance=0.85, potentials_csv_file='potenciales.csv'):
     """
     Verifies if the cleaned surfaces calculations for material and material_id were achieved successfully. If this is the case, creates .in files for surfaces with adsorbed Li atoms.
 
@@ -266,6 +267,8 @@ def ads_in_files_creation(material, material_id, folder_path, miller=['100', '11
             Path of the CSV file containing the calculations history database.
         tolerance : float, default=0.85
             Tolerance to determine the layers.
+        potentials_csv_file : str, default='potenciales.csv'
+            Path of CSV file with pseudopotentials data.
     """
     print("========================")
     print(f'{material}_{material_id}')
@@ -276,7 +279,7 @@ def ads_in_files_creation(material, material_id, folder_path, miller=['100', '11
         path = f'{folder_path}/{material}_{material_id}'
         file_path = path+f'/{material}_{material_id}_{idx}_relax.out'
         # Verify if the surface is loaded in calculations history database
-        is_surface_created = _verify_calculation_history(material, material_id, int(idx))
+        is_surface_created = _verify_calculation_history(material, material_id, int(idx), csv_path=csv_path)
         if not is_surface_created:
             print(f"ERROR! The surface given by {material}, {material_id}, {idx} is not loeaded in the calculations history database.")
             break
@@ -285,14 +288,14 @@ def ads_in_files_creation(material, material_id, folder_path, miller=['100', '11
             continue
         calc_result = _verify_calculation_result(file_path)
         if calc_result == 'is_completed':
-            as_dict = _create_all_adsorption_files(path, material, material_id, idx)
+            as_dict = _create_all_adsorption_files(path, material, material_id, idx, csv_file=potentials_csv_file)
             n_b, n_h, n_o, n_t = _count_adsorption_sites(idx, path)
             # Print information
             print(f'Number of sites:')
             print(f'\tbridge: {n_b}')
             print(f'\thollow: {n_h}')
             print(f'\tontop:  {n_o}')
-            print(f'\nSitios totales: {n_t}')
+            print(f'\nTotal sites: {n_t}')
             _show_ads(as_dict, path, material, material_id, idx, tolerance=tolerance)
             print("\n")
         else:

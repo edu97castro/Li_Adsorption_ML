@@ -253,7 +253,7 @@ def _is_Li_in_model(model):
             break
     return output
 
-def ad_in_file_creation(model, surface, li_coord, name, site, k, path_in):
+def ad_in_file_creation(model, surface, li_coord, name, site, k, path_in, csv_file='potenciales.csv'):
     """
     Modify the apropiate model for an .in file of an cleaned surface and add a Li atom in an given adsortion site. Then creates the .in file for the surface + Li.
 
@@ -273,6 +273,8 @@ def ad_in_file_creation(model, surface, li_coord, name, site, k, path_in):
             Number that identify the adsortion site.
         path_in: string
             The path of the folder in which the generated .in files are going to be saved.
+        csv_file : str, default='potenciales.csv'
+            Path of CSV file with pseudopotentials data.
 
     Returns:
     --------------------
@@ -296,7 +298,7 @@ def ad_in_file_creation(model, surface, li_coord, name, site, k, path_in):
             model2[i] = f'ntyp = {len(surface.elements) + 1},\n'
             continue
         if 'ATOMIC_SPECIES' in line and not Li_in_model_2:
-            model2.insert(i+1, _find_potential('Li'))
+            model2.insert(i+1, _find_potential('Li', csv_file=csv_file))
             continue
         if 'K_POINTS' in line:
             li_position_index = i-1
@@ -349,7 +351,7 @@ def _redefine_structure_atomic_positions(surface, new_atomic_positions):
 
     return new_surface
 
-def ads_in(surface, file_out, file_in, path_in=None, verbose=False):
+def ads_in(surface, file_out, file_in, path_in=None, verbose=False, csv_file='potenciales.csv'):
     """
     Create pw.x input files for slabs with adsorbed Li atoms from a .out file obtained from a pw.x relaxation calculation.
 
@@ -371,6 +373,8 @@ def ads_in(surface, file_out, file_in, path_in=None, verbose=False):
             If provided, the folder's dir where the .in files of the surface with atoms adsorbed are going to be saved. If set to None, the .in files will be saved in the same folder of the relax.out file.
         verbose : bool, default=False
             Wether to print information about the process.
+        csv_file : str, default='potenciales.csv'
+            Path of CSV file with pseudopotentials data.
     Returns:
     -----------
         Returns a dictionary of adsorption sites. The keys are 'bridge', 'hollow', 'ontop', and the values are the cartesian coordinates.   
@@ -407,5 +411,5 @@ def ads_in(surface, file_out, file_in, path_in=None, verbose=False):
         for k, coord in enumerate(coords):
             print(f"\t\t\tCreando archivo .in para sitio {site} número {k}") if verbose else None
             coord[-1] = z_li
-            ad_in_file_creation(model, surface, coord, name, site, k, path_in)
+            ad_in_file_creation(model, surface, coord, name, site, k, path_in, csv_file=csv_file)
     return AF.find_adsorption_sites()
