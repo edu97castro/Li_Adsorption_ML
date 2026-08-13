@@ -37,7 +37,7 @@ def _find_potential(element, csv_file='potenciales.csv'): # Internal use only
     print(f"Element {element} not found.")
     return None
 
-def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints = [4,4,4], atoms_to_relax = None, nosym=False, electron_maxstep = 200, vdw = None, dftd3_threebody = True):
+def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints = [4,4,4], atoms_to_relax = None, nosym=False, electron_maxstep = 200, vdw = None, dftd3_threebody = True, model_path='./model.in', csv_file='potenciales.csv'):
     """
     Writes the input of a relaxation pw.x quantum expresso simulation from a given structure.
 
@@ -69,6 +69,10 @@ def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints
             If set into str, van der waals corrections are considered. The available options are the same than for vdw_corr option in pw.x input fles.
         dftd3_threebody: bool, default=True
             Wether to consider three-body terms in Grimme-D3 van der Waals correction.
+        model_path : str, default='./model.in'
+            Path of .in file used as model to generate the files.
+        csv_file: str, default='potenciales.csv'
+            Paht of CSV file with pseudopotentials data.
 
     Output:
     -------
@@ -80,7 +84,7 @@ def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints
     if not os.path.exists(f"{path}/"):
         os.makedirs(f"{path}/")
     # Open and read the model input file
-    with open("model.in", 'r') as model:
+    with open(model_path, 'r') as model:
         model = model.readlines()
 
     vectores = [" ".join([str(elemento) for elemento in vec]) + '\n' for vec in structure.lattice.matrix]
@@ -119,7 +123,7 @@ def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints
 
         if "ATOMIC_SPECIES" in line:
             for elemento in elementos:
-                model.insert(i+1, _find_potential(elemento))
+                model.insert(i+1, _find_potential(elemento, csv_file=csv_file))
             continue
 
         # Add atomic positions
@@ -156,7 +160,7 @@ def structure_in(structure, path, file_name, outdir, prefix, pseudo_dir, kpoints
         for line in model:
             file.write(line)
 
-def surface_in(surface, material, miller_index, path, kpoints=[4,4,1], file_name=None, pseudo_dir=None, nosym=False, electron_maxstep = 200,  vdw = None, dftd3_threebody = True):
+def surface_in(surface, material, miller_index, path, kpoints=[4,4,1], file_name=None, pseudo_dir=None, nosym=False, electron_maxstep = 200,  vdw = None, dftd3_threebody = True, model_path='./model.in', csv_file='potenciales.csv'):
     """
     Writes the input of a relaxation pw.x quantum expresso simulation for a given material, structure and Miller index.
 
@@ -184,6 +188,10 @@ def surface_in(surface, material, miller_index, path, kpoints=[4,4,1], file_name
             If set into str, van der waals corrections are considered. The available options are the same than for vdw_corr option in pw.x input fles.
         dftd3_threebody: bool, default=True
             Wether to consider three-body terms in Grimme-D3 van der Waals correction.
+        model_path : str, default='./model.in'
+            Path of .in file used as model to generate the files.
+        csv_file: str, default='potenciales.csv'
+            Paht of CSV file with pseudopotentials data.
 
     Output:
     -------
@@ -217,7 +225,9 @@ def surface_in(surface, material, miller_index, path, kpoints=[4,4,1], file_name
         nosym = nosym,
         electron_maxstep = electron_maxstep,
         vdw = vdw,
-        dftd3_threebody = dftd3_threebody
+        dftd3_threebody = dftd3_threebody,
+        model_path=model_path,
+        csv_file=csv_file
     )
 
 def _is_Li_in_model(model):

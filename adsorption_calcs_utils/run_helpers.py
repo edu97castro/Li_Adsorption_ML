@@ -151,8 +151,8 @@ def _save_calc_in_calculation_history(material, material_id, e_hull, idx, surfac
         'errores' : [0]
     })
 
-    if _verify_calculation_history(material, material_id, idx):
-        _replace_history_row(material, material_id, idx, new_row)
+    if _verify_calculation_history(material, material_id, idx, csv_path=csv_path):
+        _replace_history_row(material, material_id, idx, new_row, csv_path=csv_path)
     else:
         df_history = pd.read_csv(csv_path, low_memory=False)
         df_history = pd.concat([df_history, new_row], ignore_index=True)
@@ -179,7 +179,7 @@ def _verify_surface_quality(file_name, csv_path='./historial_de_calculos.csv'):
     view(atoms_surface)
 
     while True:
-        user_input = input("¿Is the surface stteped? (y/n): ").strip().lower()  # Convierte a minúscula y elimina espacios
+        user_input = input("¿Is the surface stepped? (y/n): ").strip().lower()  # Convierte a minúscula y elimina espacios
         if user_input in ('y', 'n'):
             break
         print("Invalid input. Please enter 'y' o 'n'.")

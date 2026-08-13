@@ -147,7 +147,8 @@ def cut_first_layers(material, material_id, layers_dic, version_name, path='./sl
             print(f"There is already a material in historial_de_calculos.csv identified as {material_id+version_name} with Miller index {int(idx)}. Please consult the database.")
 
 
-def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=[(1,0,0),  (1,1,0), (1,1,1)], replace_in=False, num_layers=6, vac_size=20.0, k=8, pseudo_dir="/home/ecastro/trabajo_final/pseudos", nosym=True, vdw='DFT-D3', dftd3_threebody=False, tolerance=0.85, csv_path='./historial_de_calculos.csv'):
+def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=[(1,0,0),  (1,1,0), (1,1,1)], replace_in=False, num_layers=6, vac_size=20.0, k=8, pseudo_dir="/home/ecastro/trabajo_final/pseudos", nosym=True, vdw='DFT-D3', dftd3_threebody=False, tolerance=0.85, csv_path='./historial_de_calculos.csv',
+slabs_path = "./slabs", model_path='./model.in', csv_file='potenciales.csv'):
     """
     Creates the .in files for cleaned surfaces corresponding to material, material_id and Miller indices in miller parameter.
 
@@ -186,6 +187,12 @@ def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=
             In each iteration, the atom with the biggest z coordinate that wasn´t assign to a previous layer is identified. Each other atom that wasn´t assign to a previous layer whose distance along the z-axis to this atom is less than the tolerance is considered to be in the same layer.
         csv_path : str, default='./historial_de_calculos.csv'
             Path of the CSV file containing the calculations history database.
+        slabs_path : str, default='./slabs'
+            Path of the folder containing the salbs's joblib files.
+        model_path : str, default='./model.in'
+            Path of .in file used as model to generate the files.
+        csv_file : str, default='potenciales.csv'
+            Paht of CSV file with pseudopotentials data.
 
     Output:
     ----------
@@ -208,7 +215,7 @@ def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=
             continue
 
         # Load the surface given by material, material_id and idx and create a copy with required number of layers and vacuum size
-        surface = load(f'./slabs/{material}_{index_str}_{material_id}.joblib')
+        surface = load(f'{slabs_path}/{material}_{index_str}_{material_id}.joblib')
         modified_surface = _prepare_surface(surface, num_layers, vac_size, tolerance)
 
         # Define path of the containing folder and the file
@@ -226,7 +233,9 @@ def cleaned_in_files_creation(material, material_id, ehull, folder_path, miller=
             pseudo_dir = pseudo_dir,
             nosym = nosym,
             vdw = vdw,
-            dftd3_threebody = dftd3_threebody
+            dftd3_threebody = dftd3_threebody,
+            model_path=model_path,
+            csv_file=csv_file
         )
 
         # Saves and visualize pymatgn slab object
