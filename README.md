@@ -22,7 +22,7 @@ The notebook `run_adsorption_calc.ipynb` shows all the process of computing adso
 
 The `samples` directory contains some examples to try the notebook's workflow. Its content includes:
 - The `cif` directory with the `CIF` files of MP's crystals.
-. The `pseudos` directory with the `UPF` pseudopotential files (provided by [PSLibrary](https://dalcorso.github.io/pslibrary/)) used in DFT calculations.
+- The `pseudos` directory with the `UPF` pseudopotential files (provided by [PSLibrary](https://dalcorso.github.io/pslibrary/)) used in DFT calculations.
 - `materials_project_DB.csv`, that contains MP's crystals's data.
 - `potentials.csv`, which list the available pseudopotentials in `pseudos` directory and data of the atomic species.
 
