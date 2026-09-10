@@ -14,7 +14,7 @@ An automated workflow to generate a database of adsorption energies and a Graph 
 
 This project aims to help to identify materials suitable for be used as anode current collectors in Anode-Free Lithium Batteries (AFLB). Pande and Viswanathan showed that the adsorption energy of Lithium (Li) on a metallic crystal's surface can be used as a descriptor of the material's performance as a anode current collector $^2$.
 
-Using the automatic workflow and the trained model, a database of 1507 adsorption energies was created. The considered substrates are made of pure transition metals, Li, Mg, Ca, B, Al, Ga, Si, Sn, Ge and Pb, as well as their alloys with Li.
+Using the automatic workflow and the trained model, a database of 1507 adsorption energies was created. The considered substrates are made of pure transition metals, Li, Mg, Ca, B, Al, Ga, Si, Sn, Ge and Pb, as well as their alloys with Li. The simulations were run at the [Centro de Cómputos de Alto Desempeño](https://supercomputo.unc.edu.ar) -High-Performance Computing Center- (CCAD) of the Universidad Nacional de Córdoba (UNC).
 
 $^1$ T. Xie y J. C. Grossman. **“Crystal Graph Convolutional Neural Networks for
 Accurate and Interpretable Prediction of Material Properties”**. En: Physical
