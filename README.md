@@ -24,7 +24,7 @@ $^2$ V. Pande, V. Viswanathan. **“Computational Screening of Current Collector
 
 ## Content overview
 
-The notebook `run_adsorption_calc.ipynb` shows all the process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions and is mainly based on [PyMatGen  Library](https://pymatgen.org/).
+The notebook `run_adsorption_calc.ipynb` shows all the process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions and is mainly based on [PyMatGen  Library](https://pymatgen.org/). You can read more details in [Workflow for computing adsorption energies section](#workflow-for-computing-adsorption-energies).
 
 The `samples` directory contains some examples to try the notebook's workflow. Its content includes:
 - The `cif` directory with `CIF` files of MP's crystals.
@@ -34,9 +34,13 @@ The `samples` directory contains some examples to try the notebook's workflow. I
 - The `ads_energies_results` directory, with the results of the calculations for each MP's material. Its subdirectories have names like `[reduced_chemical_formula]_[MP_id]`. Each one of these contains the `.in` files for `QE` DFT calculations and the resulting `.out` files for all slabs and slab+adsorbate systems.
 - The `slabs` directory, that contains `joblib` files which store PyMatGen structure objects of the slabs generated from the materials.
 - `ads_energies_db.csv`, that stores all the adsorption energies computed.
-- `calcs_history.csv`, which works as a calculations record.
+- `calcs_history.csv`, which works as a calculations record. You can see a description of its columns in [calcs_history's and final_calcs_history's columns description section](#calcs_historys-and-final_calcs_historys-columns-description).
 
-Finally, the `model.in` is a sample of a `QE` `.in` file used by `adsorption_calcs_utils` to write the slabs and slab+adsorbate systems's `.in` files.
+The `model.in` is a sample of a `QE` `.in` file used by `adsorption_calcs_utils` to write the slabs and slab+adsorbate systems's `.in` files.
+
+The `results` directory contains the results obtained so far in this project. It includes two files:
+- `adsorption_sites_database.csv`, with the obtained adsorption energies database. You can see a description of its columns in [adsorption_sites_database's columns description section](adsorption_sites_databases-columns-description).
+- `final_calcs_history.csv`, which is a record of all the calculations performed. In the [calcs_history's and final_calcs_history's columns description section](#calcs_historys-and-final_calcs_historys-columns-description) you can see more details about its columns meanings.
 
 ## Workflow for computing adsorption energies
 
@@ -50,9 +54,9 @@ The `run_adsorption_calc.ipynb` shows step by step the whole process. It has fiv
 
 In the las two sections of the `run_adsorption_calc.ipynb` notebook, you can consult the `calcs_history.csv` and `ads_energies_db.csv` databases (check the notebook for details).
 
-## calcs_history.csv
+## calcs_history's and final_calcs_history's columns description
 
-In this section, the meaning of each column in `calcs_history.csv` is detailed. Note that each row correspondes to one surface and saves information about it and the adsorption energies calculations over its adsorption sites.
+In this section, the meaning of each column in `calcs_history.csv` and `final_calcs_history.csv` files is detailed. Note that each row correspondes to one surface and saves information about it and the adsorption energies calculations on its adsorption sites.
 
 - **material**: Material's pretty formula.
 - **material-id**: Material's identifier in MP.
@@ -77,3 +81,12 @@ In this section, the meaning of each column in `calcs_history.csv` is detailed. 
 - **prob_convergencia**: How many calculations failed due to convergence issues.
 - **prob_tiempo**: How many calculations failed due to lack of computing time.
 - **errores**: How many calculations failed due to errors. 
+
+## adsorption_sites_database's columns description
+
+In this section, the columns of the `adsorption_sites_database.csv` file are described:
+- **surface**: Contains surfaces's identifiers, which have the form `[material_pretty_formula]_[material_MP_identifier]_[Miller_index]`.
+- **adsorption_site**: Identifies each surface´s adsorption sites. The values have the form `[adsorption_site_type]_[adsorption_site_number]`
+- **ads initial x**, **ads initial y**, **ads initial z**: Adsorbate's initial coordenates in the slab's supercell, before relaxation calculations.
+- **ads final x**, **ads final y**, **ads final z**: Adsorbate's final coordenates in the slabś supercell, after relaxation calculations.
+- **adsorptin energy**: Computed adsorption energy.
