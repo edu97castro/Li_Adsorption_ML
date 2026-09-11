@@ -119,3 +119,7 @@ class EnergyDiffCalculator:
         energy_diffs = self.get_energy_diff()
         df = pd.DataFrame(energy_diffs.items(), columns=['Adsorption Path', 'Adsorption energy'])
         return df.sort_values(by='Adsorption Path')
+
+__all__ = [
+    'EnergyDiffCalculator'
+]
