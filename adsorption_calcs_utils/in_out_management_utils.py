@@ -105,3 +105,9 @@ def redefine_atomic_positions_in(file_in, new_atomic_coordinates):
                 break
 
     return model
+
+__all__ = [
+    'get_relaxed',
+    'extract_relaxed_positions_from_out',
+    'redefine_atomic_positions_in'
+]

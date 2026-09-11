@@ -399,3 +399,18 @@ def modify_vac_size(slab, vac_size, center_slab=True):
     modified_surface = translate_slab(modified_surface, center_slab)
 
     return modified_surface
+
+__all__ = [
+    'get_layers_indices',
+    'count_layers_local',
+    'first_surface_layers',
+    'create_slab',
+    'translate_slab',
+    'slab_truncator',
+    'cut_surface_n_first_layers',
+    'get_max_and_min_z_coord',
+    'get_slab_size',
+    'slab_supercell_height',
+    'get_vac_size',
+    'modify_vac_size'
+]
