@@ -131,3 +131,7 @@ def get_structure_from_cif(cif_id, path="./cif/", primitive=True):
     standardized_structure = sga.get_conventional_standard_structure()
     
     return standardized_structure
+
+__all__ = [
+    'get_structure_from_cif'
+]
