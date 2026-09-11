@@ -63,7 +63,7 @@ def _are_elements_in_formula(formula, elements): # Internal use only
 
 def get_material_and_cif(e_hull_max, composition=1, elements=None, filter_formula_by_min=None, order_by_ehull = True, csv_file = './materials_project_DB.csv', verbose = False):
     """
-    Retrieve a list of materials from MP database. The list is a list of tuples, each one with the material´s formula, material´s ID in MP database, its energy above hull and its number of sites in a primitive cell.
+    Retrieves a list of materials from MP database. The list is a list of tuples, each one with the material´s formula, material´s ID in MP database, its energy above hull and its number of sites in a primitive cell.
 
     The selected materials are filtered to those that have:
         - energy above hull below certain value
