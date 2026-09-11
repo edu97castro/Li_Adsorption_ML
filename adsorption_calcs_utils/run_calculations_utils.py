@@ -4,12 +4,86 @@ import os
 from joblib import dump, load
 import pandas as pd
 
-from .cif_utils import get_structure_from_cif
+from .cif_utils import get_structure_from_cif, _count_unique_elements, _order_materials_list_by_ehull, _print_materials_list, _are_elements_in_formula
 from .structure_utils import create_slab, count_layers_local, cut_surface_n_first_layers
 from .run_helpers import *
 from .in_creation_utils import surface_in
 from .in_out_management_utils import get_relaxed
 from .diff_calculator_utils import EnergyDiffCalculator
+
+def get_material_and_cif(e_hull_max, composition=1, elements=None, filter_formula_by_min=None, order_by_ehull = True, csv_file = './materials_project_DB.csv', verbose = False):
+    """
+    Retrieves a list of materials from MP database. The list is a list of tuples, each one with the material´s formula, material´s ID in MP database, its energy above hull and its number of sites in a primitive cell.
+
+    The selected materials are filtered to those that have:
+        - energy above hull below certain value
+        - a certain number of chemical elements
+        - certain chemical elements in their composition, if required.
+
+    For materials with the same formula you can choose to keep them all, only the material with lowest energy above hull or only the material with lowest number of sites in a primitive cell.
+
+    Parameters:
+    ----------
+        e_hull_max : float
+            The maximum energy above hull value for filtering materials.
+        composition : int, default=1
+            The number of unique elements required in the material formula.
+        elements: list of string, default=None
+            The chemical formulas of the elements we want in the material.
+        filter_formula_by_min: None | string, default=None
+            Criteria to filter the materials with the same formula. Options:
+                - "nsites": Keep the material with lowestnumber of sites in primitive cell
+                - "energy_above_hull": Keep the material with the lowset energy above hull
+                - None: Keep all the materials with same formula.
+        order_by_ehull : bool, default=True
+            Wether to sort in increasing order the materials in the output list by their energy above hull.
+        csv_file : str, default='./materials_project_DB.csv'
+            Path of the CSV file containing the MP materials database.
+        verbose : bool, default=False
+            Wether to print the output list of materials.
+
+    Returns:
+    -------
+    material_list : list of tuples
+        A list of tuples where each tuple contains the chemical formula (pretty format), the corresponding material ID from the MP database, the energy above hull and the number of sites in a primitive cell.
+    """
+    assert isinstance(elements, list), "'elements' parameter must be a list o strings"
+
+    # Load the material database CSV file into a DataFrame
+    material_DB = pd.read_csv(csv_file, low_memory=False)
+    
+    # Filter the DataFrame to include only materials with energy above hull less than e_hull_max
+    material_DB_filtered = material_DB[material_DB['energy_above_hull'] < e_hull_max]
+
+    if isinstance(elements, list):
+        material_DB_filtered = material_DB_filtered[
+            material_DB_filtered['formula_pretty'].apply(lambda x: _are_elements_in_formula(x, elements))
+        ]
+    
+    # Group by 'formula_pretty' and get the row with the minimum 'nsites' or 'e_above_hull" in each group
+    if isinstance(filter_formula_by_min, str):
+        material_DB_min_grouped = material_DB_filtered.loc[
+            material_DB_filtered.groupby('formula_pretty')[filter_formula_by_min].idxmin()
+        ]
+    else:
+        material_DB_min_grouped = material_DB_filtered
+    
+    # Filter tuples based on the number of unique elements in the formula
+    material_list = [
+        (row.formula_pretty, row.material_id, row.energy_above_hull, row.nsites) 
+        for row in material_DB_min_grouped.itertuples(index=False)
+        if _count_unique_elements(row.formula_pretty) == composition
+    ]
+    
+    # Order materials by e_above_hull if order_by_ehull == True
+    if order_by_ehull:
+        material_list = _order_materials_list_by_ehull(material_list)
+    
+    # Print the list if verbose
+    if verbose:
+        _print_materials_list(material_list)
+
+    return material_list
 
 def select_material(materials, n):
     """
