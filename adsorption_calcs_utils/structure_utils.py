@@ -401,7 +401,7 @@ def modify_vac_size(slab, vac_size, center_slab=True):
     return modified_surface
 
 __all__ = [
-    'get_layers_indices´,
+    'get_layers_indices',
     'count_layers_local',
     'first_surface_layers',
     'create_slab',
