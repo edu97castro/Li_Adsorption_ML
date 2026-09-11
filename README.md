@@ -22,7 +22,8 @@ $^2$ V. Pande and V. Viswanathan. **“Computational Screening of Current Collec
 
 ## Content overview
 
-The notebook `run_adsorption_calc.ipynb` shows the entire process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions and is mainly based on the [PyMatGen  Library](https://pymatgen.org/). You can read more details in the [Workflow for computing adsorption energies section](#workflow-for-computing-adsorption-energies).
+The notebook `run_adsorption_calc.ipynb` shows the entire process of computing adsorption energies from Materials Project data. This notebook uses the `adsorption_calcs_utils` module, which contains all the required functions and is mainly based on the [PyMatGen  Library](https://pymatgen.org/).
+For more information about the workflow, read the [Workflow for computing adsorption energies section](#workflow-for-computing-adsorption-energies). For more details about the `adsorption_calcs_utils` module, read [its README.md file](./adsorption_calcs_utils/README.md).
 
 The `samples` directory contains some examples to test the notebook's workflow. Its contents include:
 - The `cif` directory with `CIF` files of MP's crystals.
