@@ -413,3 +413,10 @@ def ads_in(surface, file_out, file_in, path_in=None, verbose=False, csv_file='po
             coord[-1] = z_li
             ad_in_file_creation(model, surface, coord, name, site, k, path_in, csv_file=csv_file)
     return AF.find_adsorption_sites()
+
+__all__ = [
+    'structure_in',
+    'surface_in',
+    'ad_in_file_creation',
+    'ads_in'
+]
