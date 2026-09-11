@@ -6,7 +6,7 @@ import pandas as pd
 
 from .cif_utils import get_structure_from_cif, _count_unique_elements, _order_materials_list_by_ehull, _print_materials_list, _are_elements_in_formula
 from .structure_utils import create_slab, count_layers_local, cut_surface_n_first_layers
-from .run_helpers import *
+from ._run_helpers import *
 from .in_creation_utils import surface_in
 from .in_out_management_utils import get_relaxed
 from .diff_calculator_utils import EnergyDiffCalculator
